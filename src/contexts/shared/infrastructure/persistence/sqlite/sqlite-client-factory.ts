@@ -27,7 +27,9 @@ export class SqliteClientFactory {
   private static async createAndConnnectClient(
     config: { database: string },
   ): Promise<Client> {
-    const client = new Client(config.database)
+    const client = new Client(config.database, {
+      mode: 'read',
+    })
 
     return client
   }
