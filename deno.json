@@ -1,0 +1,23 @@
+{
+  "tasks": {
+    "dev": "deno run -A --env --watch src/app/index.ts",
+    "start": "deno run --allow-net --env src/app/index.ts"
+  },
+  "fmt": {
+    "useTabs": true,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "semiColons": false
+  },
+  "imports": {
+    "~/": "./src/app/",
+    "@/": "./src/contexts/",
+    "std/": "https://deno.land/std@0.207.0/",
+    "toruk": "https://deno.land/x/toruk@0.4.6/mod.ts",
+    "toruk/middlewares": "https://deno.land/x/toruk@0.4.6/middlewares/mod.ts",
+    "zod": "https://deno.land/x/zod@v3.23.8/mod.ts",
+    "sqlite": "https://deno.land/x/sqlite@v3.8/mod.ts"
+  }
+}

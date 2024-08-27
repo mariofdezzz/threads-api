@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "deno",
+      "command": "task",
+      "problemMatcher": [
+        "$deno"
+      ],
+      "args": ["dev"],
+      "label": "deno task: dev",
+      "detail": "deno run -A --env --watch src/app/index.ts"
+    }
+  ]
+}

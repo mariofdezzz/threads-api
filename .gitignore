@@ -1,0 +1,5 @@
+# dependencies
+deno.lock
+
+# macOS-specific files
+.DS_Store
