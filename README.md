@@ -1,4 +1,4 @@
-# Threads API
+# Threads API
 
 Threads API server using best practices. Guidelines for API design and implementation.
 
