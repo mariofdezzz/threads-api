@@ -1,5 +1,6 @@
+import { Criteria } from '@/shared/domain/criteria/criteria.ts'
+
 export type SqliteQueryBuilderParams = {
   table: string
-  limit?: number
-  offset?: number
+  criteria?: Criteria
 }

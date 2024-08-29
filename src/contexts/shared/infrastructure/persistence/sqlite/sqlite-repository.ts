@@ -1,8 +1,8 @@
 import { AggregateRoot } from '@/shared/domain/aggregate-root.ts'
 import { Criteria } from '@/shared/domain/criteria/criteria.ts'
 import { Primitives } from '@/shared/domain/primitives.ts'
+import { ID } from '@/shared/domain/value-objects/id.ts'
 import { PersistenceRepository } from '@/shared/infrastructure/persistence/persistence-repository.ts'
-import { ReadResult } from '@/shared/infrastructure/persistence/read-result.ts'
 import { SqlitePrimitives } from '@/shared/infrastructure/persistence/sqlite/sqlite-primitives.ts'
 import { SqliteQueryBuilder } from '@/shared/infrastructure/persistence/sqlite/sqlite-query-builder.ts'
 import type { DB } from 'sqlite'
@@ -30,38 +30,21 @@ export class SqliteRepository<
     return entity // FIXME: id ?
   }
 
-  protected async get(id: string): Promise<U | null> {
+  protected async get(id: ID): Promise<U | null> {
     return (await this.client).queryEntries<U>(
       `SELECT * FROM users WHERE id = ${id}`,
     )[0]
   }
 
-  protected async read(criteria?: Criteria): Promise<ReadResult<U>> {
-    const limit = criteria?.limit !== undefined
-      ? criteria?.limit + 1
-      : undefined
+  protected async read(criteria?: Criteria): Promise<U[]> {
     const query = SqliteQueryBuilder.build({
       table: 'users',
-      limit,
-      offset: criteria?.offset,
+      criteria,
     })
 
-    const entries = (await this.client).queryEntries<U>(query)
+    console.log('[QUERY]', query)
 
-    const data = entries.length === limit
-      ? entries.slice(0, limit - 1)
-      : entries
-
-    const result: ReadResult<U> = {
-      data,
-      paging: {
-        cursors: {
-          before: null,
-          after: entries.length === limit ? entries.at(-1)?.id as any : null,
-        },
-      },
-    }
-    return result
+    return (await this.client).queryEntries<U>(query)
   }
 
   protected async update(entity: U): Promise<U> {
@@ -78,7 +61,7 @@ export class SqliteRepository<
     return entity
   }
 
-  protected async delete(id: string): Promise<void> {
+  protected async delete(id: ID): Promise<void> {
     return (await this.client).execute(`DELETE FROM users WHERE id = ${id}`)
   }
 }

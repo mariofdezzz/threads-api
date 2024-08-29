@@ -1,11 +1,11 @@
 import { ID } from '@/shared/domain/value-objects/id.ts'
 
-export type ReadResult<T> = {
+export type SearchResult<T> = {
   data: T[]
   paging: {
-    cursors: {
+    cursor: {
       before: ID | null
-      after: number | null
+      after: ID | null
     }
   }
 }
