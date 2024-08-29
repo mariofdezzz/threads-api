@@ -1,6 +1,7 @@
 import { Router } from 'toruk'
 import { logger } from 'toruk/middlewares'
 import { StatusGetController } from '~/controllers/v1/status-get-controller.ts'
+import { ThreadsGetController } from '~/controllers/v1/threads-get-controller.ts'
 import { UserGetController } from '~/controllers/v1/user-get-controller.ts'
 import { UsersGetController } from '~/controllers/v1/users-get-controller.ts'
 
@@ -19,6 +20,10 @@ export const router = new Router({
           path: '/:id',
           handler: UserGetController,
         }],
+      },
+      {
+        path: '/threads',
+        handler: ThreadsGetController,
       },
     ],
   }],

@@ -13,7 +13,9 @@ export type Primitives<C> = {
     : MaybeNullablePrimitives<C[K]>
 }
 
-type MaybeNullablePrimitives<K> = K extends undefined | null ? K : Primitives<K>
+type MaybeNullablePrimitives<K> = K extends undefined | null ? K
+  : K extends ValueObject<VOPrimitives> ? K['value']
+  : Primitives<K>
 
 type ClassProperties<T> = {
   // deno-lint-ignore ban-types

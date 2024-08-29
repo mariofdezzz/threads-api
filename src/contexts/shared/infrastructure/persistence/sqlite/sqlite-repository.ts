@@ -7,10 +7,12 @@ import { SqlitePrimitives } from '@/shared/infrastructure/persistence/sqlite/sql
 import { SqliteQueryBuilder } from '@/shared/infrastructure/persistence/sqlite/sqlite-query-builder.ts'
 import type { DB } from 'sqlite'
 
-export class SqliteRepository<
+export abstract class SqliteRepository<
   T extends AggregateRoot,
   U extends Record<string, unknown> = SqlitePrimitives<Primitives<T>>,
 > extends PersistenceRepository<U> {
+  abstract readonly tableName: string
+
   constructor(protected readonly client: Promise<DB>) {
     super()
   }
@@ -20,7 +22,9 @@ export class SqliteRepository<
     const client = await this.client
 
     client.execute(
-      `INSERT INTO users (${Object.keys(entity).join(', ')}) VALUES (${
+      `INSERT INTO ${this.tableName} (${
+        Object.keys(entity).join(', ')
+      }) VALUES (${
         Object.values(
           entity,
         ).join(', ')
@@ -32,13 +36,13 @@ export class SqliteRepository<
 
   protected async get(id: ID): Promise<U | null> {
     return (await this.client).queryEntries<U>(
-      `SELECT * FROM users WHERE id = ${id}`,
+      `SELECT * FROM ${this.tableName} WHERE id = ${id}`,
     )[0]
   }
 
   protected async read(criteria?: Criteria): Promise<U[]> {
     const query = SqliteQueryBuilder.build({
-      table: 'users',
+      table: this.tableName,
       criteria,
     })
 
@@ -51,7 +55,7 @@ export class SqliteRepository<
     const client = await this.client
 
     client.execute(
-      `UPDATE users SET ${
+      `UPDATE ${this.tableName} SET ${
         Object.entries(entity)
           .map(([key, value]) => `${key} = ${value}`)
           .join(', ')
@@ -62,6 +66,8 @@ export class SqliteRepository<
   }
 
   protected async delete(id: ID): Promise<void> {
-    return (await this.client).execute(`DELETE FROM users WHERE id = ${id}`)
+    return (await this.client).execute(
+      `DELETE FROM ${this.tableName} WHERE id = ${id}`,
+    )
   }
 }

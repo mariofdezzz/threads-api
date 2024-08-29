@@ -7,8 +7,8 @@ export class PagingCursor {
     readonly after?: ID,
     readonly limit?: number,
   ) {
+    // TODO: throw error if (before && after)
     this.paging = before !== undefined || after !== undefined ||
       limit !== undefined
   }
 }
-// TODO: throw error if (before && after)

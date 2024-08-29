@@ -1,3 +1,5 @@
+import { Primitives } from '@/shared/domain/primitives.ts'
+
 // deno-lint-ignore-file no-explicit-any
 export abstract class AggregateRoot {
   toPrimitives(): Primitives<this> {
