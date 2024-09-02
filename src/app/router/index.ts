@@ -6,6 +6,7 @@ import { ThreadRepliesGetController } from '~/controllers/v1/threads/thread-repl
 import { UserGetController } from '~/controllers/v1/user-get-controller.ts'
 import { UsersGetController } from '~/controllers/v1/users-get-controller.ts'
 import { UserThreadsGetController } from '~/controllers/v1/users/user-threads-get-controller.ts'
+import { StaticAssetsGetController } from '../controllers/v1/static-assets-get-controller.ts'
 
 export const router = new Router({
   routes: [{
@@ -34,6 +35,10 @@ export const router = new Router({
           path: '/:id/replies',
           handler: ThreadRepliesGetController,
         }],
+      },
+      {
+        path: '/images/*',
+        handler: StaticAssetsGetController,
       },
     ],
   }],
