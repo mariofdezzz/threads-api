@@ -2,8 +2,10 @@ import { Router } from 'toruk'
 import { logger } from 'toruk/middlewares'
 import { StatusGetController } from '~/controllers/v1/status-get-controller.ts'
 import { ThreadsGetController } from '~/controllers/v1/threads-get-controller.ts'
+import { ThreadRepliesGetController } from '~/controllers/v1/threads/thread-replies-get-controller.ts'
 import { UserGetController } from '~/controllers/v1/user-get-controller.ts'
 import { UsersGetController } from '~/controllers/v1/users-get-controller.ts'
+import { UserThreadsGetController } from '~/controllers/v1/users/user-threads-get-controller.ts'
 
 export const router = new Router({
   routes: [{
@@ -19,11 +21,19 @@ export const router = new Router({
         children: [{
           path: '/:id',
           handler: UserGetController,
+          children: [{
+            path: '/threads',
+            handler: UserThreadsGetController,
+          }],
         }],
       },
       {
         path: '/threads',
         handler: ThreadsGetController,
+        children: [{
+          path: '/:id/replies',
+          handler: ThreadRepliesGetController,
+        }],
       },
     ],
   }],

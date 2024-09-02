@@ -1,3 +1,5 @@
+import { camelToSnakeCase } from '@/shared/domain/casing/camel-to-snake-case.ts'
+import { Filters } from '@/shared/domain/criteria/filters.ts'
 import { SqliteQueryBuilderParams } from '@/shared/infrastructure/persistence/sqlite/sqlite-query-builder-params.ts'
 
 export class SqliteQueryBuilder {
@@ -10,10 +12,14 @@ export class SqliteQueryBuilder {
       : cursorAfter
       ? `id > ${cursorAfter}`
       : ''
+    const conditions = [
+      this.buildCriteriaFilters(criteria?.filters),
+      cursor,
+    ].filter((c) => c).join(' AND ')
 
     const selectClause = 'SELECT *'
     const fromClause = `FROM ${table}`
-    const whereClause = cursor ? `WHERE ${cursor}` : ''
+    const whereClause = conditions ? `WHERE ${conditions}` : ''
     const orderByClause = cursorBefore ? 'ORDER BY id DESC' : ''
     const limitClause = limit ? `LIMIT ${limit}` : ''
 
@@ -33,5 +39,15 @@ export class SqliteQueryBuilder {
     }
 
     return query
+  }
+
+  private static buildCriteriaFilters(
+    { filters }: Filters = { filters: [] },
+  ): string {
+    const filtersClauses = filters.map(({ field, operator, value }) =>
+      `${camelToSnakeCase(String(field))} ${operator.value} ${value}`
+    ).join(' AND ')
+
+    return filtersClauses
   }
 }
