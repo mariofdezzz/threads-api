@@ -3,8 +3,8 @@ import { Operator } from '@/shared/domain/criteria/filter-operator.ts'
 import { Filters } from '@/shared/domain/criteria/filters.ts'
 import { PagingCursor } from '@/shared/domain/criteria/paging-cursor.ts'
 import { ID } from '@/shared/domain/value-objects/id.ts'
-import { threadsRepository } from '~/container/repositories/threads-repository.ts'
 import { Controller } from '~/controllers/controller.ts'
+import { threadRepository } from '../../../container/repositories/thread-repository.ts'
 
 // GET /v1/users/:id/threads
 export const UserThreadsGetController: Controller<'/v1/users/:id/threads'> =
@@ -30,7 +30,7 @@ export const UserThreadsGetController: Controller<'/v1/users/:id/threads'> =
       ),
     )
 
-    const result = await threadsRepository.search(criteria)
+    const result = await threadRepository.search(criteria)
 
     return Response.json(result)
   }

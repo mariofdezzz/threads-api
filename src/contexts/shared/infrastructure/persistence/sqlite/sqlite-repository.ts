@@ -65,9 +65,19 @@ export abstract class SqliteRepository<
     return entity
   }
 
-  protected async delete(id: ID): Promise<void> {
+  protected async delete(id: ID | Record<string, ID>): Promise<void> {
+    if (id instanceof ID) {
+      return (await this.client).execute(
+        `DELETE FROM ${this.tableName} WHERE id = ${id}`,
+      )
+    }
+
     return (await this.client).execute(
-      `DELETE FROM ${this.tableName} WHERE id = ${id}`,
+      `DELETE FROM ${this.tableName} WHERE ${
+        Object.entries(id).map(([key, value]) => `${key} = ${value}`).join(
+          ' AND ',
+        )
+      }`,
     )
   }
 }

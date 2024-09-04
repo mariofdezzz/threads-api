@@ -15,8 +15,8 @@
     "~/": "./src/app/",
     "@/": "./src/contexts/",
     "std/": "https://deno.land/std@0.207.0/",
-    "toruk": "https://deno.land/x/toruk@0.4.6/mod.ts",
-    "toruk/middlewares": "https://deno.land/x/toruk@0.4.6/middlewares/mod.ts",
+    "toruk": "https://deno.land/x/toruk@0.4.10/mod.ts",
+    "toruk/middlewares": "https://deno.land/x/toruk@0.4.10/middlewares/mod.ts",
     "zod": "https://deno.land/x/zod@v3.23.8/mod.ts",
     "sqlite": "https://deno.land/x/sqlite@v3.8/mod.ts"
   }
