@@ -24,4 +24,16 @@ export class SqliteThreadLikeRepository extends SqliteRepository<ThreadLike>
 
     await this.delete(compoundId)
   }
+
+  async updateCount(entity: ThreadLike): Promise<void> {
+    const client = await this.client
+
+    client.execute(`
+        UPDATE threads
+        SET likes = (SELECT COUNT(*)
+          FROM likes
+          WHERE likes.thread_id = threads.id)
+        WHERE id = ${entity.threadId}
+      `)
+  }
 }

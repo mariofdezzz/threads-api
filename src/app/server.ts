@@ -1,4 +1,6 @@
 import { App } from 'toruk'
+import { domainEventSubscribers } from '~/container/event/domain-event-subscribers.ts'
+import { eventBus } from '~/container/event/event-bus.ts'
 import { router } from '~/router/index.ts'
 
 export class Server {
@@ -9,6 +11,7 @@ export class Server {
 
   listen(): Promise<void> {
     const signal = this.abortController.signal
+    this.configureEventBus()
 
     return new Promise((resolve) => {
       this.server = new App(router).serve({
@@ -30,5 +33,9 @@ export class Server {
       })
       this.abortController.abort()
     })
+  }
+
+  private configureEventBus() {
+    eventBus.registerSubscribers(domainEventSubscribers)
   }
 }

@@ -28,7 +28,7 @@ export class InMemoryEventBus implements EventBus {
     })
   }
 
-  private registerSubscribers(
+  registerSubscribers(
     subscribers: DomainEventSubscriber<DomainEvent>[],
   ): void {
     subscribers.forEach((subscriber) => {

@@ -1,6 +1,5 @@
-import { ThreadLike } from '@/thread-likes/domain/thread-like.ts'
+import { threadLikeRemover } from '~/container/application/thread-like/thread-like-remover.ts'
 import { APIUseJWT } from '~/container/jwt-middleware.ts'
-import { threadLikeRepository } from '~/container/repositories/thread-like-repository.ts'
 import { Controller } from '~/controllers/controller.ts'
 
 export const ThreadLikesDeleteController: Controller<
@@ -10,12 +9,12 @@ export const ThreadLikesDeleteController: Controller<
   const threadId = params.id
   const userId = jwt.payload.uid
 
-  const threadLike = ThreadLike.fromPrimitives({
+  const threadLike = {
     threadId: Number(threadId),
     userId: Number(userId),
-  })
+  }
 
-  await threadLikeRepository.remove(threadLike)
+  await threadLikeRemover.remove(threadLike)
 
   return Response.json(threadLike)
 }
