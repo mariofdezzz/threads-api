@@ -14,6 +14,8 @@
   "imports": {
     "~/": "./src/app/",
     "@/": "./src/contexts/",
+    "#/": "./tests/",
+    "assert": "https://deno.land/std@0.207.0/assert/mod.ts",
     "std/": "https://deno.land/std@0.207.0/",
     "toruk": "https://deno.land/x/toruk@0.4.10/mod.ts",
     "toruk/middlewares": "https://deno.land/x/toruk@0.4.10/middlewares/mod.ts",

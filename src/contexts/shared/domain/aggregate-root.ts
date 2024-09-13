@@ -20,7 +20,7 @@ export abstract class AggregateRoot {
     return structuredClone(
       Object.entries(this).filter(([key]) => key !== 'domainEvents').reduce(
         (acc, [key, value]) => {
-          acc[key] = value.toPrimitives()
+          if (value) acc[key] = value.toPrimitives()
 
           return acc
         },
