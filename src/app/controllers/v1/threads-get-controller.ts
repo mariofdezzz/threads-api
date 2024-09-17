@@ -2,8 +2,8 @@ import { Criteria } from '@/shared/domain/criteria/criteria.ts'
 import { Filters } from '@/shared/domain/criteria/filters.ts'
 import { PagingCursor } from '@/shared/domain/criteria/paging-cursor.ts'
 import { ID } from '@/shared/domain/value-objects/id.ts'
+import { threadSearcher } from '~/container/application/thread/thread-searcher.ts'
 import { Controller } from '~/controllers/controller.ts'
-import { threadRepository } from '../../container/repositories/thread-repository.ts'
 
 // GET /v1/threads
 export const ThreadsGetController: Controller<'/v1/threads'> = async ({
@@ -23,7 +23,7 @@ export const ThreadsGetController: Controller<'/v1/threads'> = async ({
     ),
   )
 
-  const result = await threadRepository.search(criteria)
+  const result = await threadSearcher.search(criteria)
 
   return Response.json(result)
 }

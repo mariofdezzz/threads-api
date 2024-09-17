@@ -2,7 +2,7 @@ import { contentType } from 'std/media_types/mod.ts'
 import { Controller } from '~/controllers/controller.ts'
 
 // GET /v1/images/*
-export const StaticAssetsGetController: Controller<'/v1/images/*'> = async ({
+export const ImagesGetController: Controller<'/v1/images/*'> = async ({
   request,
 }) => {
   const { pathname } = new URL(request.url)

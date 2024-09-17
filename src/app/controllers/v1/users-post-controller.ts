@@ -7,9 +7,7 @@ export const UsersPostController: Controller<'/v1/users'> = async (
 ) => {
   const { body } = await request.json()
 
-  const user = await userRepository.save(body)
+  await userRepository.save(body)
 
-  return Response.json({
-    data: user,
-  })
+  return Response.json(body)
 }

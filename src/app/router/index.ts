@@ -8,7 +8,7 @@ import { ThreadRepliesGetController } from '~/controllers/v1/threads/thread-repl
 import { UserGetController } from '~/controllers/v1/user-get-controller.ts'
 import { UsersGetController } from '~/controllers/v1/users-get-controller.ts'
 import { UserThreadsGetController } from '~/controllers/v1/users/user-threads-get-controller.ts'
-import { StaticAssetsGetController } from '../controllers/v1/static-assets-get-controller.ts'
+import { ImagesGetController } from '../controllers/v1/images-get-controller.ts'
 import { ThreadLikesPutController } from '../controllers/v1/threads/thread-likes-put-controller.ts'
 
 export const router = new Router({
@@ -60,7 +60,7 @@ export const router = new Router({
       },
       {
         path: '/images/*',
-        handler: StaticAssetsGetController,
+        handler: ImagesGetController,
       },
     ],
   }],

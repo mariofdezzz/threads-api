@@ -13,6 +13,14 @@ export class User extends AggregateRoot {
     super()
   }
 
+  static create(primitives: Primitives<User>): User {
+    const user = User.fromPrimitives(primitives)
+
+    // user.record(...)
+
+    return user
+  }
+
   static fromPrimitives({
     id,
     name,

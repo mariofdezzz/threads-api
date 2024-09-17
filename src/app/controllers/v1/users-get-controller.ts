@@ -2,7 +2,7 @@ import { Criteria } from '@/shared/domain/criteria/criteria.ts'
 import { Filters } from '@/shared/domain/criteria/filters.ts'
 import { PagingCursor } from '@/shared/domain/criteria/paging-cursor.ts'
 import { ID } from '@/shared/domain/value-objects/id.ts'
-import { userRepository } from '~/container/repositories/user-repository.ts'
+import { userSearcher } from '~/container/application/user/user-searcher.ts'
 import { Controller } from '~/controllers/controller.ts'
 
 // GET /v1/users
@@ -23,7 +23,7 @@ export const UsersGetController: Controller<'/v1/users'> = async ({
     ),
   )
 
-  const result = await userRepository.search(criteria)
+  const result = await userSearcher.search(criteria)
 
   return Response.json(result)
 }

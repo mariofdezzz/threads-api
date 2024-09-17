@@ -3,7 +3,7 @@ import { ThreadRepository } from '@/threads/domain/thread-repository.ts'
 
 export class ThreadFinder {
   constructor(
-    readonly repository: ThreadRepository,
+    private readonly repository: ThreadRepository,
   ) {}
 
   async find(id: number) {
