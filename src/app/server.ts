@@ -1,6 +1,7 @@
 import { App } from 'toruk'
 import { domainEventSubscribers } from '~/container/event/domain-event-subscribers.ts'
 import { eventBus } from '~/container/event/event-bus.ts'
+import { logger } from '~/container/logger.ts'
 import { router } from '~/router/index.ts'
 
 export class Server {
@@ -17,7 +18,7 @@ export class Server {
       this.server = new App(router).serve({
         signal,
         onListen({ port, hostname }) {
-          console.log(`Server started at http://${hostname}:${port}`)
+          logger.info(`Server started at http://${hostname}:${port}`)
           resolve()
         },
       })

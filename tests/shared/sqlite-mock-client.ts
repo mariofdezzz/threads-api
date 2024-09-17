@@ -2,6 +2,7 @@ import { AggregateRoot } from '@/shared/domain/aggregate-root.ts'
 import { camelToSnakeCase } from '@/shared/domain/casing/camel-to-snake-case.ts'
 import { SqliteClientFactory } from '@/shared/infrastructure/persistence/sqlite/sqlite-client-factory.ts'
 import { DB } from 'sqlite'
+import { logger } from '~/container/logger.ts'
 
 export class SqliteMockClient {
   private constructor(readonly client: Promise<DB>) {}
@@ -36,7 +37,7 @@ export class SqliteMockClient {
         )
         .join(', ')
     })`
-    console.log(statement)
+    logger.debug(statement)
 
     client.execute(statement)
   }

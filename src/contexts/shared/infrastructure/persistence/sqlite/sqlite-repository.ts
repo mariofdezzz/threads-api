@@ -6,6 +6,7 @@ import { PersistenceRepository } from '@/shared/infrastructure/persistence/persi
 import { SqlitePrimitives } from '@/shared/infrastructure/persistence/sqlite/sqlite-primitives.ts'
 import { SqliteQueryBuilder } from '@/shared/infrastructure/persistence/sqlite/sqlite-query-builder.ts'
 import type { DB } from 'sqlite'
+import { logger } from '~/container/logger.ts'
 
 export abstract class SqliteRepository<
   T extends AggregateRoot,
@@ -46,7 +47,7 @@ export abstract class SqliteRepository<
       criteria,
     })
 
-    console.log('[QUERY]', query)
+    logger.debug('[QUERY]', query)
 
     return (await this.client).queryEntries<U>(query)
   }
