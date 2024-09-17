@@ -10,7 +10,10 @@ export class StdLogger implements Logger {
   private logger: DenoStdLogger
 
   constructor() {
-    const logLevel = getLevelName(LogLevels.NOTSET)
+    const logLevel = Deno.env.get('ENV') === 'dev'
+      ? getLevelName(LogLevels.DEBUG)
+      : getLevelName(LogLevels.INFO)
+
     this.logger = new DenoStdLogger(
       'std-logger',
       logLevel,

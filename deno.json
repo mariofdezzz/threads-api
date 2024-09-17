@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run -A --env --watch src/app/index.ts",
+    "dev": "ENV='dev' deno run -A --env --watch src/app/index.ts",
     "start": "deno run --allow-net --allow-env --allow-read --allow-write --env src/app/index.ts"
   },
   "fmt": {

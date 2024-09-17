@@ -14,6 +14,9 @@
         "--allow-all",
         "--env"
       ],
+      "env": {
+        "ENV": "dev"
+      },
       "attachSimplePort": 9229
     }
   ]
