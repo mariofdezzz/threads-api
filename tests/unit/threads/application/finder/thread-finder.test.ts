@@ -1,8 +1,8 @@
-import { MockRepository } from '#/shared/mock-repository.ts'
+import { MockRepository } from '#/contexts/shared/mock-repository.ts'
+import { ThreadMother } from '#/contexts/threads/domain/thread-mother.ts'
 import { ThreadFinder } from '@/threads/application/finder/thread-finder.ts'
 import { ThreadRepository } from '@/threads/domain/thread-repository.ts'
 import { assertEquals } from 'assert'
-import { ThreadMother } from '../../domain/thread-mother.ts'
 
 Deno.test('Should find an existing thread', async () => {
   const thread = ThreadMother.random()

@@ -1,4 +1,4 @@
-import { appUrl } from '#/shared/app-url.ts'
+import { appUrl } from '#/contexts/shared/app-url.ts'
 import { assertEquals } from 'assert'
 
 Deno.test('Should get a thread', async () => {

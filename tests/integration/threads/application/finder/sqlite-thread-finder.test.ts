@@ -1,5 +1,5 @@
-import { SqliteMockClient } from '#/shared/sqlite-mock-client.ts'
-import { ThreadMother } from '#/unit/threads/domain/thread-mother.ts'
+import { SqliteMockClient } from '#/contexts/shared/sqlite-mock-client.ts'
+import { ThreadMother } from '#/contexts/threads/domain/thread-mother.ts'
 import { ThreadFinder } from '@/threads/application/finder/thread-finder.ts'
 import { SqliteThreadRepository } from '@/threads/infrastructure/sqlite-thread-repository.ts'
 import { assertEquals } from 'assert'
